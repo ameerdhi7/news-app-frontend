@@ -1,32 +1,47 @@
-import React, { useState, useEffect } from "react";
-import UserService from "../services/user.service";
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {fetchNews} from "../slices/news";
+import ArticleCard from "../components/ArticleCard";
 
-const Home = () => {
-  const [content, setContent] = useState("");
+const HomePage = ({articles, loading, error, fetchNews}) => {
+    useEffect(() => {
+        fetchNews(); // Fetch news data when the component mounts
+    }, [fetchNews]);
 
-  useEffect(() => {
-    // UserService.getPublicContent().then(
-    //   (response) => {
-    //     setContent(response.data);
-    //   },
-    //   (error) => {
-    //     const _content =
-    //       (error.response && error.response.data) ||
-    //       error.message ||
-    //       error.toString();
-    //
-    //     setContent(_content);
-    //   }
-    // );
-  }, []);
+    if (loading) {
+        return <div>Loading...</div>; // Show a loading state while fetching news data
+    }
 
-  return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
-    </div>
-  );
+    if (error) {
+        return <div>Error: {error}</div>; // Show an error message if fetching news data fails
+    }
+
+    return (
+        <div>
+            <h1>News</h1>
+            <div className="container">
+                <div className="row">
+                    {articles.map((article) => (
+                        <div className="col-4">
+                            <ArticleCard key={article.title} article={article}/>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        articles: state.news.articles, // Access the news data from the Redux store
+        loading: state.news.loading, // Access the loading state from the Redux store
+        error: state.news.error, // Access the error state from the Redux store
+    }
+};
+
+const mapDispatchToProps = {
+    fetchNews, // Bind the fetchNews action creator to the component's props
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
