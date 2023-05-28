@@ -2,8 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 
 import AuthService from "../services/auth.service";
+import StorageService from "../services/storage.service";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(StorageService.get("user"));
 
 export const register = createAsyncThunk(
   "/api/v1/register",

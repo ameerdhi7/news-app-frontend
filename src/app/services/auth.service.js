@@ -1,5 +1,7 @@
 import axios from "axios";
 import API_BASE_URL from "../config";
+import Login from "../pages/Login";
+import StorageService from "./storage.service";
 
 const API_URL = API_BASE_URL;
 
@@ -18,14 +20,13 @@ const login = (email, password) => {
         email,
         password,
     };
-    console.log(payload);
     return axios
         .post(fullUrl, payload)
         .then((response) => {
-            if (response.data.email) {
-                localStorage.setItem("user", JSON.stringify(response.data));
+            if (response.data.user) {
+                StorageService.set("user", JSON.stringify(response.data.user));
+                StorageService.set("token", response.data.token);
             }
-
             return response.data;
         });
 };

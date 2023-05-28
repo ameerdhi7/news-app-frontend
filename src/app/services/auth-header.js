@@ -1,8 +1,9 @@
-export default function authHeader() {
-    const token = JSON.parse(localStorage.getItem("token"));
+import StorageService from "./storage.service";
 
+export default function authHeader() {
+    const token = StorageService.get("token");
     if (token) {
-        return {"x-access-token": token};
+        return {"bearer": token};
     } else {
         return {};
     }
