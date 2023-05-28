@@ -2,15 +2,15 @@ import React from 'react';
 
 const Loader = () => {
     return (
-        <div className="d-flex w-full h-100 justify-content-center align-items-center">
-            <div className={"row"}>
-                <div className="col">
-                    <div className="spinner-border text-primary" role="status">
+        <div className="d-flex w-full min-vh-100 justify-content-center align-items-center">
+            <div className={"row justify-content-center align-items-center"}>
+                <div className="col-12">
+                    <div className="spinner-grow p-5 text-primary" role="status">
                         {/*<span className="visually-hidden">Loading...</span>*/}
                     </div>
                 </div>
                 <div className="col-12">
-                    <span>Loading...</span>
+                    <h5 className={"text-center"}>Loading...</h5>
                 </div>
             </div>
         </div>

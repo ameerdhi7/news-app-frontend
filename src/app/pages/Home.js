@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {fetchNews} from "../slices/news";
 import ArticleCard from "../components/ArticleCard";
 import Loader from "../components/common/Loader";
+import Error from "../components/common/Error";
+import EmptyState from "../components/common/EmptyState";
 
 const HomePage = ({articles, loading, error, fetchNews}) => {
     useEffect(() => {
@@ -14,7 +16,12 @@ const HomePage = ({articles, loading, error, fetchNews}) => {
     }
 
     if (error) {
-        return <div>Error: {error}</div>; // Show an error message if fetching news data fails
+        return <Error errorMessage={error}/>; // Show an error message if fetching news data fails
+    }
+
+    const isEmpty = articles.length === 0;
+    if (isEmpty) {
+        return <EmptyState/>
     }
 
     return (
