@@ -106,17 +106,22 @@ const Login = () => {
                                     />
                                 </div>
 
-                                <div className="form-group">
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary btn-block"
-                                        disabled={loading}
-                                    >
-                                        {loading && (
-                                            <span className="spinner-border spinner-border-sm"></span>
-                                        )}
-                                        <span>Login</span>
-                                    </button>
+                                <div className="row justify-content-center mt-3">
+                                    <div className="col-auto">
+                                        <div className="form-group">
+                                            <button
+                                                type="submit"
+                                                className="btn btn-primary"
+                                                disabled={loading}
+                                            >
+                                                {loading && (
+                                                    <span className="spinner-border spinner-border-sm"></span>
+                                                )}
+                                                <span>Login</span>
+                                            </button>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </Form>
                         )}

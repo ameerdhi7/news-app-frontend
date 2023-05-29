@@ -5,7 +5,7 @@ const Loader = () => {
         <div className="d-flex w-full min-vh-100 justify-content-center align-items-center">
             <div className={"row justify-content-center align-items-center"}>
                 <div className="col-12">
-                    <div className="spinner-grow p-5 text-primary" role="status">
+                    <div className="spinner-grow p-3 text-primary" role="status">
                         {/*<span className="visually-hidden">Loading...</span>*/}
                     </div>
                 </div>

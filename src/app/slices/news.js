@@ -27,15 +27,27 @@ const newsSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+        searchNewsRequest: (state) => {
+            state.loading = true; // Set loading to true when searching news
+            state.error = null; // Clear any previous error
+        },
+        searchNewsSuccess: (state, action) => {
+            state.loading = false; // Set loading to false when search is successful
+            state.articles = action.payload; // Update articles with search results
+        },
+        searchNewsFailure: (state, action) => {
+            state.loading = false; // Set loading to false on search failure
+            state.error = action.payload; // Set error message
+        },
     },
 });
 
 // Extract the action creators
 export const {
-    fetchNewsRequest,
-    fetchNewsSuccess,
-    fetchNewsFailure,
+    fetchNewsRequest, fetchNewsSuccess, fetchNewsFailure,
+    searchNewsRequest, searchNewsSuccess, searchNewsFailure,
 } = newsSlice.actions;
+
 
 // Define a thunk action creator to fetch news
 export const fetchNews = () => async (dispatch) => {
@@ -47,5 +59,16 @@ export const fetchNews = () => async (dispatch) => {
         dispatch(fetchNewsFailure(error.message)); // Dispatch the fetch news failure action with the error message
     }
 };
+
+export const searchNews = (searchCriteria) => async (dispatch) => {
+    dispatch(searchNewsRequest()); // Dispatch the search news request action
+    try {
+        const response = await NewsService.search(searchCriteria); // Make the API request to search news
+        dispatch(searchNewsSuccess(response.data.data.articles)); // Dispatch the search news success action with the search results
+    } catch (error) {
+        dispatch(searchNewsFailure(error.message)); // Dispatch the search news failure action with the error message
+    }
+};
+
 
 export default newsSlice.reducer;

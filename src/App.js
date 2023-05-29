@@ -2,7 +2,6 @@ import React, {useEffect, useCallback} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import Login from "./app/pages/Login";

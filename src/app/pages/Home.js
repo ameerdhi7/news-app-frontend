@@ -5,6 +5,7 @@ import ArticleCard from "../components/ArticleCard";
 import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
 import EmptyState from "../components/common/EmptyState";
+import SearchBar from "../components/SearchBar";
 
 const HomePage = ({articles, loading, error, fetchNews}) => {
     useEffect(() => {
@@ -26,6 +27,8 @@ const HomePage = ({articles, loading, error, fetchNews}) => {
 
     return (
         <div>
+            <SearchBar/>
+
             <h1>News for you</h1>
             <div className="container">
                 <div className="row">
