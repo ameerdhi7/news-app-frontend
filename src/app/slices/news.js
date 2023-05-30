@@ -1,6 +1,5 @@
-// newsSlice.js
+// news.js
 import {createSlice} from '@reduxjs/toolkit';
-import axios from 'axios';
 import NewsService from "../services/news.service";
 
 // Create a slice using createSlice
@@ -10,6 +9,12 @@ const newsSlice = createSlice({
         articles: [],
         loading: false,
         error: null,
+        searchCriteria: {
+            searchQuery: '',
+            source: '',
+            category: '',
+            date: ''
+        },
     },
     reducers: {
         // Action reducer for fetching news request
@@ -19,8 +24,8 @@ const newsSlice = createSlice({
         },
         // Action reducer for fetching news success
         fetchNewsSuccess: (state, action) => {
-            state.loading = false;
-            state.articles = action.payload;
+            state.loading = false; // Set loading to false when search is successful
+            state.articles = action.payload; // Update articles with search results
         },
         // Action reducer for fetching news failure
         fetchNewsFailure: (state, action) => {
@@ -32,9 +37,11 @@ const newsSlice = createSlice({
             state.error = null; // Clear any previous error
         },
         searchNewsSuccess: (state, action) => {
-            state.loading = false; // Set loading to false when search is successful
-            state.articles = action.payload; // Update articles with search results
+            state.articles = action.payload.result;
+            state.searchCriteria = action.payload.searchCriteria
+            state.loading = false;
         },
+
         searchNewsFailure: (state, action) => {
             state.loading = false; // Set loading to false on search failure
             state.error = action.payload; // Set error message
@@ -64,7 +71,11 @@ export const searchNews = (searchCriteria) => async (dispatch) => {
     dispatch(searchNewsRequest()); // Dispatch the search news request action
     try {
         const response = await NewsService.search(searchCriteria); // Make the API request to search news
-        dispatch(searchNewsSuccess(response.data.data.articles)); // Dispatch the search news success action with the search results
+        const body = {
+            searchCriteria: searchCriteria,
+            result: response.data.data.articles
+        }
+        dispatch(searchNewsSuccess(body)); // Dispatch the search news success action with the search results
     } catch (error) {
         dispatch(searchNewsFailure(error.message)); // Dispatch the search news failure action with the error message
     }

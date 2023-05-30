@@ -132,10 +132,12 @@ const Register = () => {
                                             />
                                         </div>
 
-                                        <div className="form-group">
-                                            <button type="submit" className="btn btn-primary btn-block">
-                                                Sign Up
-                                            </button>
+                                        <div className="row justify-content-center mt-3">
+                                            <div className="col-auto">
+                                                <button type="submit" className="btn btn-primary btn-block">
+                                                    Sign Up
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 )}

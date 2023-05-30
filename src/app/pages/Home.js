@@ -19,25 +19,28 @@ const HomePage = ({articles, loading, error, fetchNews}) => {
     if (error) {
         return <Error errorMessage={error}/>; // Show an error message if fetching news data fails
     }
-
     const isEmpty = articles.length === 0;
     if (isEmpty) {
         return <EmptyState/>
     }
 
     return (
-        <div>
-            <SearchBar/>
-
-            <h1>News for you</h1>
-            <div className="container">
-                <div className="row">
-                    {articles.map((article) => (
-                        <div className="col-12 col-md-4" key={article.title}>
-                            <ArticleCard article={article}/>
-                        </div>
-                    ))}
+        <div className={"container"}>
+            <div className="row justify-content-center">
+                <div className="col-sm-8 col-12">
+                    <h6 className={"mb-1 mt-3 text-secondary"}>Search, filter, explore, and uncover the Latest
+                        News!</h6>
+                    <SearchBar/>
                 </div>
+            </div>
+            <h1 className={"h4 mt-3 text-white"}>Hot Off the Press - Get Your Daily Dose of Breaking News!</h1>
+            <div className="row">
+                {articles.map((article, index) => (
+                    <div className={`col-12 ${index === 0 ? 'col-md-12 text-center' : 'col-md-4'}`}
+                         key={article.title}>
+                        <ArticleCard article={article}/>
+                    </div>
+                ))}
             </div>
         </div>
     );

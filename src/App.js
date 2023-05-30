@@ -35,8 +35,8 @@ const App = () => {
     return (
         <Router>
             <div>
-                <nav className="navbar navbar-expand navbar-dark bg-dark">
-                    <Link to={"/"} className="navbar-brand">
+                <nav className="navbar shadow  navbar-expand navbar-dark bg-dark">
+                    <Link to={"/"} className="navbar-brand mx-1 mx-md-5">
                         News Center
                     </Link>
                     <div className="navbar-nav mr-auto">
@@ -85,7 +85,7 @@ const App = () => {
                     )}
                 </nav>
 
-                <div className="container mt-3">
+                <div className="container p-1    mt-3">
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/home" element={<Home/>}/>
