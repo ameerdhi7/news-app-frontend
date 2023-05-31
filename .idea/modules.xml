@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/news-app-frontend.iml" filepath="$PROJECT_DIR$/.idea/news-app-frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../zain-products/.idea/react-tailwind-starter.iml" filepath="$PROJECT_DIR$/../zain-products/.idea/react-tailwind-starter.iml" />
     </modules>
   </component>
 </project>

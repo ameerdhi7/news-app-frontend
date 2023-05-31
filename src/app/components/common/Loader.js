@@ -10,7 +10,7 @@ const Loader = () => {
                     </div>
                 </div>
                 <div className="col-12">
-                    <h5 className={"text-center"}>Loading...</h5>
+                    <h5 className={"text-center text-white"}>Loading...</h5>
                 </div>
             </div>
         </div>

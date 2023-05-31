@@ -56,10 +56,13 @@ const ArticleCard = ({article}) => {
                         : truncateDescription(article.description)}
                 </p>
                 <p className="card-text">
-                    <small className="text-muted">Source: {article.source}</small>
+                    <small className="text-muted">
+                        Source: {article.source}
+                    </small>
                 </p>
                 <p className="card-text">
-                    <small className="text-muted">Author: {article.author}</small>
+                    {article.author && <small className="text-muted">Author: {article.author}</small>
+                    }
                 </p>
             </div>
         </div>

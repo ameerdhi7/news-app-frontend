@@ -1,9 +1,9 @@
 import React from 'react';
 
-const EmptyState = ({message = "Could find results"}) => {
+const EmptyState = ({message = "No results found"}) => {
     return (
-        <div className="empty-state">
-            <p className="empty-state__message">{message}</p>
+        <div className="min-vh-100 d-flex justify-content-center align-items-center">
+            <p className="empty-state__message h2 text-center text-danger">{message}</p>
         </div>
     );
 };
