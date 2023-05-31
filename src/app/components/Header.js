@@ -47,13 +47,8 @@ const Header = () => {
             {currentUser ? (
                 <div className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <Link to={"/profile"} className="nav-link">
-                            {currentUser.name}
-                        </Link>
-                    </li>
-                    <li className="nav-item">
                         <a href="/login" className="nav-link" onClick={logOut}>
-                            LogOut
+                            Logout
                         </a>
                     </li>
                 </div>
@@ -67,7 +62,9 @@ const Header = () => {
 
                     <li className="nav-item">
                         <Link to={"/register"} className="nav-link">
-                            Sign Up
+                            <span className={"rounded text-white bg-secondary p-1 px-2"}>
+                                Sign Up
+                            </span>
                         </Link>
                     </li>
                 </div>

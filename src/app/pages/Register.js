@@ -135,7 +135,7 @@ const Register = () => {
                                         <div className="row justify-content-center mt-3">
                                             <div className="col-auto">
                                                 <button type="submit" className="btn btn-primary btn-block">
-                                                    Sign Up
+                                                    Register
                                                 </button>
                                             </div>
                                         </div>

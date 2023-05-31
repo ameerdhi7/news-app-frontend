@@ -1,5 +1,5 @@
 // preferencesSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import PreferencesService from "../services/preferences.service";
 import UserService from "../services/user.service";
@@ -54,7 +54,6 @@ export const {
 
 export const fetchPreferences = () => async (dispatch) => {
     dispatch(fetchPreferencesRequest());
-
     try {
         const response = await PreferencesService.getPreferencesOptions();
         dispatch(fetchPreferencesSuccess(response.data.data));
@@ -65,10 +64,12 @@ export const fetchPreferences = () => async (dispatch) => {
 
 export const savePreferences = (preferences) => async (dispatch) => {
     dispatch(savePreferencesRequest());
-
     try {
         await PreferencesService.savePreferencesOptions(preferences);
         dispatch(savePreferencesSuccess());
+
+        // Call fetchPreferences thunk by directly invoking the dispatch function
+        await dispatch(fetchPreferences());
     } catch (error) {
         dispatch(savePreferencesFailure(error.message));
     }

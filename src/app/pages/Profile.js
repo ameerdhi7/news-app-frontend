@@ -3,6 +3,8 @@ import {connect, useSelector} from 'react-redux';
 import {Formik, Form, Field, FieldArray} from 'formik';
 import {fetchPreferences, savePreferences} from '../slices/preferences';
 import {Navigate} from 'react-router-dom';
+import Loader from "../components/common/Loader";
+import Error from "../components/common/Error";
 
 const Profile = ({categories, authors, sources, loading, error, fetchPreferences, savePreferences}) => {
     useEffect(() => {
@@ -14,6 +16,13 @@ const Profile = ({categories, authors, sources, loading, error, fetchPreferences
     if (!currentUser) {
         return <Navigate to="/login"/>;
     }
+    if (loading) {
+        return <Loader/>; // Show a loading state while fetching news data
+    }
+
+    if (error) {
+        return <Error errorMessage={error}/>; // Show an error message if fetching news data fails
+    }
 
     const handleSubmit = (values) => {
         savePreferences(values);
@@ -22,7 +31,6 @@ const Profile = ({categories, authors, sources, loading, error, fetchPreferences
     const handleButtonClick = (form, fieldName, itemId) => {
         const values = form.values[fieldName];
         const index = values.indexOf(itemId);
-        console.log(index);
         if (index === -1) {
             form.setFieldValue(fieldName, [...values, itemId]);
         } else {
@@ -92,7 +100,7 @@ const Profile = ({categories, authors, sources, loading, error, fetchPreferences
                                             <button
                                                 key={source.id}
                                                 type="button"
-                                                className={`col-auto btn btn-sm rounded ${
+                                                className={`col-auto  btn btn-sm rounded ${
                                                     form.values.sources.includes(source.id)
                                                         ? 'btn-success'
                                                         : 'btn-outline-secondary'

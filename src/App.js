@@ -12,7 +12,7 @@ import Footer from "./app/components/Footer";
 const App = () => {
     return (
         <Router>
-            <div>
+            <div className={"min-vh-100"}>
                 <Header/>
                 <div className="container p-1 mt-3">
                     <Routes>
@@ -23,8 +23,8 @@ const App = () => {
                         <Route path="/profile" element={<Profile/>}/>
                     </Routes>
                 </div>
-                <Footer/>
             </div>
+            <Footer/>
         </Router>
     );
 };
