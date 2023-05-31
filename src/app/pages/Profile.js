@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react';
 import {connect, useSelector} from 'react-redux';
-import {Formik, Form, Field} from 'formik';
-import {fetchPreferences} from '../slices/preferences';
-import {savePreferences} from '../slices/preferences';
-import {Navigate} from "react-router-dom";
+import {Formik, Form, Field, FieldArray} from 'formik';
+import {fetchPreferences, savePreferences} from '../slices/preferences';
+import {Navigate} from 'react-router-dom';
 
 const Profile = ({categories, authors, sources, loading, error, fetchPreferences, savePreferences}) => {
-
     useEffect(() => {
         fetchPreferences();
     }, [fetchPreferences]);
@@ -21,67 +19,100 @@ const Profile = ({categories, authors, sources, loading, error, fetchPreferences
         savePreferences(values);
     };
 
+    const handleButtonClick = (form, fieldName, itemId) => {
+        const values = form.values[fieldName];
+        const index = values.indexOf(itemId);
+        console.log(index);
+        if (index === -1) {
+            form.setFieldValue(fieldName, [...values, itemId]);
+        } else {
+            form.setFieldValue(fieldName, values.filter((id) => id !== itemId));
+        }
+    };
+
+    const transformInitialValues = (values) => {
+        return {
+            categories: values.categories.reduce((acc, category) => {
+                if (category.checked) {
+                    acc.push(category.id);
+                }
+                return acc;
+            }, []),
+            authors: values.authors.reduce((acc, author) => {
+                if (author.checked) {
+                    acc.push(author.id);
+                }
+                return acc;
+            }, []),
+            sources: values.sources.reduce((acc, source) => {
+                if (source.checked) {
+                    acc.push(source.id);
+                }
+                return acc;
+            }, []),
+        };
+    };
+
     return (
-        <div>
-            {loading ? (
-                <div className="text-center">Loading...</div>
-            ) : error ? (
-                <div className="text-center">Error: {error}</div>
-            ) : (
-                <Formik initialValues={{categories: [], authors: [], sources: []}} onSubmit={handleSubmit}>
+        <div className="container">
+            <h1 className="text-white text-capitalize font-weight-bold">Profile</h1>
+            <div className="jumbotron bg-white p-3 rounded">
+                <Formik initialValues={transformInitialValues({categories, authors, sources})} onSubmit={handleSubmit}>
                     <Form>
+                        <h3>Select your preferences:</h3>
                         <div className="form-group">
                             <label>Categories:</label>
-                            <div>
-                                {categories.map((category) => (
-                                    <div key={category.name} className="form-check form-check-inline">
-                                        <label className="form-check-label">
-                                            <input
-                                                type="checkbox"
-                                                name="categories"
-                                                value={category.name}
-                                                className="form-check-input"
-                                            />
-                                            {category.name}
-                                        </label>
+                            <FieldArray name="categories">
+                                {({form}) => (
+                                    <div className="row mx-1 gap-1">
+                                        {categories.map((category) => (
+                                            <button
+                                                key={category.id}
+                                                type="button"
+                                                className={`btn text-capitalize col-auto btn-sm rounded ${
+                                                    form.values.categories.includes(category.id)
+                                                        ? 'btn-success'
+                                                        : 'btn-outline-secondary'
+                                                }`}
+                                                onClick={() => handleButtonClick(form, 'categories', category.id)}
+                                            >
+                                                {category.name}
+                                            </button>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
+                                )}
+                            </FieldArray>
                         </div>
-                        <div className="form-group">
-                            <label>Authors:</label>
-                            <div>
-                                {authors.map((author) => (
-                                    <div key={author.name} className="form-check form-check-inline">
-                                        <label className="form-check-label">
-                                            <input type="checkbox" name="authors" value={author.name}
-                                                   className="form-check-input"/>
-                                            {author.name}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="form-group">
+                        <div className="form-group mt-1">
                             <label>Sources:</label>
-                            <Field
-                                as="select"
-                                id="sources"
-                                name="sources"
-                                className="form-control"
-                                multiple
-                            >
-                                {sources.map((source) => (
-                                    <option key={source.name} value={source.name}>
-                                        {source.name}
-                                    </option>
-                                ))}
-                            </Field>
+                            <FieldArray name="sources">
+                                {({form}) => (
+                                    <div className="row mx-1 gap-1">
+                                        {sources.map((source) => (
+                                            <button
+                                                key={source.id}
+                                                type="button"
+                                                className={`col-auto btn btn-sm rounded ${
+                                                    form.values.sources.includes(source.id)
+                                                        ? 'btn-success'
+                                                        : 'btn-outline-secondary'
+                                                }`}
+                                                onClick={() => handleButtonClick(form, 'sources', source.id)}
+                                            >
+                                                {source.name}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </FieldArray>
                         </div>
-                        <button type="submit" className="btn btn-primary">Save</button>
+
+                        <button type="submit" className="btn btn-primary my-4">
+                            Save
+                        </button>
                     </Form>
                 </Formik>
-            )}
+            </div>
         </div>
     );
 };
