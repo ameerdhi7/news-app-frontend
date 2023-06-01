@@ -13,7 +13,7 @@ const SearchBar = ({searchQuery, source, date, category,searchNews}) => {
     const handleFormSubmit = (values) => {
         handleSearch(values);
     };
-    const formValues = {searchQuery, source, date, category};
+    const formValues = {searchQuery, date, category};
 
     return (
         <Formik initialValues={formValues} onSubmit={handleFormSubmit}>
@@ -23,19 +23,20 @@ const SearchBar = ({searchQuery, source, date, category,searchNews}) => {
                         <Field type={"date"} name="date" className="form-select  form-select-sm"/>
                     </div>
                     <div className="input-group-append">
-                        <Field as="select" name="source" className="form-select px-3 form-select-sm">
-                            <option value="">Source</option>
-                            <option value="source1">Source 1</option>
-                            <option value="source2">Source 2</option>
-                            <option value="source3">Source 3</option>
-                        </Field>
-                    </div>
-                    <div className="input-group-append">
                         <Field as="select" name="category" className="form-select px-3 form-select-sm">
                             <option value="">Category</option>
-                            <option value="category1">Category 1</option>
-                            <option value="category2">Category 2</option>
-                            <option value="category3">Category 3</option>
+                            <option value="business">business</option>
+                            <option value="entertainment">entertainment</option>
+                            <option value="general">general</option>
+                            <option value="health">health</option>
+                            <option value="science">science</option>
+                            <option value="sports">sports</option>
+                            <option value="technology">technology</option>
+                            <option value="energy">energy</option>
+                            <option value="gaming">gaming</option>
+                            <option value="science">science</option>
+                            <option value="food">food</option>
+                            <option value="music">music</option>
                         </Field>
                     </div>
                     <Field type="text" name="searchQuery" className="form-control bg-secondary form-control-sm" placeholder={"Type your query and press the search button..."}/>

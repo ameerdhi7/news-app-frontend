@@ -1,6 +1,5 @@
-import React, {useEffect, useCallback} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import React from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import "./App.css";
 import Login from "./app/pages/Login";
 import Register from "./app/pages/Register";
