@@ -5,16 +5,25 @@ import * as Yup from "yup";
 
 import {register} from "../slices/auth";
 import {clearMessage} from "../slices/message";
+import {Navigate, useNavigate} from "react-router-dom";
 
 const Register = () => {
-    const [successful, setSuccessful] = useState(false);
 
     const {message} = useSelector((state) => state.message);
+    const [successful, setSuccessful] = useState(false);
+    const {isLoggedIn} = useSelector((state) => state.auth);
+     useState();
+    let navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(clearMessage());
     }, [dispatch]);
+
+    if (isLoggedIn) {
+        return <Navigate to="/profile"/>;
+    }
+
 
     const initialValues = {
         name: "",
@@ -47,12 +56,12 @@ const Register = () => {
     const handleRegister = (formValue) => {
         const {name, email, password} = formValue;
 
-        setSuccessful(false);
 
         dispatch(register({name, email, password}))
             .unwrap()
             .then(() => {
-                setSuccessful(true);
+                navigate("/profile")
+                window.location.reload();
             })
             .catch(() => {
                 setSuccessful(false);
