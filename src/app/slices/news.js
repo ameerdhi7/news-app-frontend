@@ -61,7 +61,7 @@ export const fetchNews = () => async (dispatch) => {
     dispatch(fetchNewsRequest()); // Dispatch the fetch news request action
     try {
         const response = await NewsService.getHomeFeed(); // Make the API request
-        dispatch(fetchNewsSuccess(response.data.data.articles[0])); // Dispatch the fetch news success action with the response data
+        dispatch(fetchNewsSuccess(response.data.data.articles)); // Dispatch the fetch news success action with the response data
     } catch (error) {
         dispatch(fetchNewsFailure(error.message)); // Dispatch the fetch news failure action with the error message
     }

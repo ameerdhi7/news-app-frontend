@@ -20,7 +20,7 @@ const SearchBar = ({searchQuery, source, date, category,searchNews}) => {
             <Form className="form-inline">
                 <div className="input-group input-group-sm mb-3">
                     <div className="input-group-append">
-                        <Field type={"date"} name="date" className="form-select form-select-sm"/>
+                        <Field type={"date"} name="date" className="form-select  form-select-sm"/>
                     </div>
                     <div className="input-group-append">
                         <Field as="select" name="source" className="form-select px-3 form-select-sm">
@@ -38,7 +38,7 @@ const SearchBar = ({searchQuery, source, date, category,searchNews}) => {
                             <option value="category3">Category 3</option>
                         </Field>
                     </div>
-                    <Field type="text" name="searchQuery" className="form-control form-control-sm bg-light"/>
+                    <Field type="text" name="searchQuery" className="form-control bg-secondary form-control-sm" placeholder={"Type your query and press the search button..."}/>
                     <button type="submit" className="btn btn-outline-light">Search</button>
                 </div>
             </Form>

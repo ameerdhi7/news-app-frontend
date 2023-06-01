@@ -1,4 +1,4 @@
-# MyNewsApp
+# News Center Frontend
 
 MyNewsApp is a web application built using React.js and styled with Bootstrap that allows users to customize their news preferences and view
 personalized news articles based on their preferences. Users can select their preferred categories, authors, and sources
